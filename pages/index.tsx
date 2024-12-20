@@ -19,8 +19,8 @@ export default function Home() {
     try {
       const response = await fetch(`/api/getbalance?address=${walletAddress}`, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       });
 
       if (!response.ok) {
@@ -36,7 +36,7 @@ export default function Home() {
       } else {
         setError("Invalid wallet address or no balance found.");
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       setError("Error fetching balance. Please try again.");
     }
@@ -72,11 +72,13 @@ export default function Home() {
         Check Balance
       </button>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      
+
       {balance !== null && (
-        isRich 
-          ? <p>You have {balance} SOL. You are Rich!</p>
-          : <p>You only have {balance} Solana. You are still a jeet.</p>
+        isRich ? (
+          <p>You have {balance} SOL. You are Rich!</p>
+        ) : (
+          <p>You only have {balance} Solana. You are still a jeet.</p>
+        )
       )}
 
       <style>
